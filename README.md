@@ -24,4 +24,5 @@ npm test
 
 My assumptions for the Mk1 proved incorrect (it was supposed to scuttle left and right rather than turn), but I've refactored the code to support both types now. I'm leaving in the boundary detection for the Mk1 (so a robot starting at 0,0 cannot go backwards or left).
 
+NB: I've taken the followng "Management also thought the robot going backwards blindly was a bad idea after we lost that one into the fire pit, so now we need to turn it around and go in the direction we're facing if we need to head back the way we came." to mean that a 'B' command is ignored by a Mk2.
 
