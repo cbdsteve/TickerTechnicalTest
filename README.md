@@ -7,6 +7,12 @@ Usage: node assignment.js instruction_string
 
 e.g.: node assignment.js "0,7,RRRRRRRRFFFFFFFFFFFLLLBBBBBRRRLLLLLFFLR"
 
+# Tests
+
+You can run the unit tests like so:
+
+npm test
+
 # Notes
 
 NB: There is some inconsistency in the wording of the challenge, around the way the robots move:
