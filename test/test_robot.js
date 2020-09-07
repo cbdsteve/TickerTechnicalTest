@@ -40,7 +40,7 @@ describe('Tests for Robot class', function()  {
     should.not.exist(robot.getError());
   });
 
-  it('calculates canMove correctly for a Mk2',  () => {
+  it('calculates canMove correctly',  () => {
     robot = chamber.addRobot(2, 0, 0);
 
     let response = robot.canMove(directionNames.up);
@@ -49,13 +49,37 @@ describe('Tests for Robot class', function()  {
     response = robot.canMove(directionNames.down); 
     response.should.equal(false);
 
-//    robot.turn(false); // should now be facing west / left, so canMove responses should be flipped
-
     response = robot.canMove(directionNames.left);
     response.should.equal(false);
 
     response = robot.canMove(directionNames.right); 
     response.should.equal(true);
+
+    should.not.exist(robot.getError());
+  });
+
+  it('calculates move correctly for a Mk1',  () => {
+    robot = chamber.addRobot(1, 0, 0);
+
+    robot.xPosition.should.equal(0);
+    robot.yPosition.should.equal(0);
+    robot.facingDirection.should.equal(0);
+
+    robot.move("F");
+    robot.xPosition.should.equal(0);
+    robot.yPosition.should.equal(1);
+
+    robot.move("B");
+    robot.xPosition.should.equal(0);
+    robot.yPosition.should.equal(0);  // B should be ignored for Mk2 as per instructions
+
+    robot.move("R");
+    robot.xPosition.should.equal(1);
+    robot.yPosition.should.equal(0);
+
+    robot.move("L");
+    robot.xPosition.should.equal(0);
+    robot.yPosition.should.equal(0);
 
     should.not.exist(robot.getError());
   });
@@ -88,5 +112,4 @@ describe('Tests for Robot class', function()  {
 
     should.not.exist(robot.getError());
   });
-
 });

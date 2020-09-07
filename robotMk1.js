@@ -1,4 +1,4 @@
-const {Robot} = require("./robot");
+const {Robot, directionNames} = require("./robot");
 
 class RobotMk1 extends Robot {
     constructor(chamber, xPosition = 0, yPosition = 0) {
@@ -9,19 +9,19 @@ class RobotMk1 extends Robot {
     move(command) {
         switch(command) {
             case 'F':
-                this.scuttle(0);
+                this.scuttle(directionNames.up);
                 break;
 
             case 'R':
-                this.scuttle(1);
+                this.scuttle(directionNames.right);
                 break;
                 
             case 'B':
-                this.scuttle(2);
+                this.scuttle(directionNames.down);
                 break;
 
             case 'L':
-                this.scuttle(3);
+                this.scuttle(directionNames.left);
                 break;
                 
             default:

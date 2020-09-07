@@ -5,7 +5,14 @@ My solution to the tech test set by ticker.co.uk
 
 Usage: node assignment.js instruction_string
 
-e.g.: node assignment.js "0,7,RRRRRRRRFFFFFFFFFFFLLLBBBBBRRRLLLLLFFLR"
+e.g.: node assignment.js "1,0,7,RRRRRRRRFFFFFFFFFFFLLLBBBBBRRRLLLLLFFLR"
+
+Where the 4 segments indicate:
+
+1) the model of the robot to use (1 for Mk1, anything else for Mk2)
+2) the starting X position for the robot
+3) the starting Y position for the robot
+4) the commands for the robot to execute
 
 # Tests
 
@@ -15,11 +22,6 @@ npm test
 
 # Notes
 
-NB: There is some inconsistency in the wording of the challenge, around the way the robots move:
-    It says "the robot can move forwards, backwards and side to side"; I would understand 'side to side' to mean
-    taking a step to the left or a step to the right, but that would conflict with the idea of moving 'forward' or
-    'backwards', so I'm going to assume that 'left' and 'right' in this case means the robot should turn.
-    This also means the robot will have a starting direction as well as starting position, which I am assuming
-    for now to be up.
+My assumptions for the Mk1 proved incorrect (it was supposed to scuttle left and right rather than turn), but I've refactored the code to support both types now. I'm leaving in the boundary detection for the Mk1 (so a robot starting at 0,0 cannot go backwards or left).
 
 

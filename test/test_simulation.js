@@ -44,6 +44,22 @@ describe('Tests for Simulation class', function()  {
     response.y.should.equal(20);
   });
 
+  it('moves a Mk1 robot correctly',  () => {
+    let response = simulation.enterInstructions("1,0,0,FFFRFFFLFFFB");
+    should.not.exist(simulation.getError());
+
+    response.x.should.equal(0);
+    response.y.should.equal(8);
+
+    simulation.clear();
+
+    response = simulation.enterInstructions("1,0,0,BBBLLLFFRRRRLB");
+    should.not.exist(simulation.getError());
+
+    response.x.should.equal(3);
+    response.y.should.equal(1);
+  });
+
   it('moves a Mk2 robot correctly',  () => {
     let response = simulation.enterInstructions("2,0,0,FFFRFFFLFFFB");
     should.not.exist(simulation.getError());

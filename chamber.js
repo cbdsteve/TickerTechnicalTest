@@ -14,7 +14,7 @@ class Chamber {
             return null;
         }
 
-        const newRobot = (version === 1) ? new RobotMk1(this, xStart, yStart) : new RobotMk2(this, xStart, yStart);
+        const newRobot = (parseInt(version) === 1) ? new RobotMk1(this, xStart, yStart) : new RobotMk2(this, xStart, yStart);
         this.robots.push(newRobot);
         return newRobot;
     };
