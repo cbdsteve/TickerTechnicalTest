@@ -9,21 +9,11 @@ class Simulation {
     /*
         Main entry point for solution, should return a position in {x:0, y:0} format or null if an error occurs.
     */
-    enterInstruction(instruction = "") {
+    enterInstructions(instructions = "") {
 
-        /*
-            NB: There is some inconsistency in the wording of the challenge, around the way the robots move:
-                It says "the robot can move forwards, backwards and side to side"; I would understand 'side to side' to mean
-                taking a step to the left or a step to the right, but that would conflict with the idea of moving 'forward' or
-                'backwards', so I'm going to assume that 'left' and 'right' in this case means the robot should turn.
-                This also means the robot will have a starting direction as well as starting position, which I am assuming
-                for now to be up.
-
-        */
-
-        const segments = instruction.split(",");
+        const segments = instructions.split(",");
         if (segments.length !== 3 || isNaN(segments[0]) || isNaN(segments[1])) {
-            this.error = `Incorrect instruction format: should be x position, y position, movements e.g. "0,0,FLFRB".`;
+            this.error = `Incorrect instructions format: should be x position, y position, movements e.g. "0,0,FLFRB".`;
             return null;
         }
 
