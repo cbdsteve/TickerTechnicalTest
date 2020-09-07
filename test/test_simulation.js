@@ -13,45 +13,49 @@ let simulation = null;
 
 describe('Tests for Simulation class', function()  {
 
-  before(() => {
+  beforeEach(() => {
     simulation = new Simulation();
   });
   
   it('parses instructions correctly',  () => {
-    let response = simulation.enterInstructions("0,0,FLFRB");
+    let response = simulation.enterInstructions("2,0,0,FLFRB");
     response.should.not.equal(null); // NB: don't care where the robot got to for this test, just testing parsing
 
     should.not.exist(simulation.getError());
 
     response = simulation.enterInstructions("0,0");
     should.not.exist(response);
-    simulation.getError().should.equal(`Incorrect instructions format: should be x position, y position, movements e.g. "0,0,FLFRB".`);
+    simulation.getError().should.equal(`Incorrect instructions format: should be robot version, x position, y position, movements e.g. "2,0,0,FLFRB".`);
 
-    response = simulation.enterInstructions("TOP,0,FBRL");
+    response = simulation.enterInstructions("2, TOP,0,FBRL");
     should.not.exist(response);
-    simulation.getError().should.equal(`Incorrect instructions format: should be x position, y position, movements e.g. "0,0,FLFRB".`);
+    simulation.getError().should.equal(`Incorrect instructions format: should be robot version, x position, y position, movements e.g. "2,0,0,FLFRB".`);
   });
 
   it('creates a robot correctly',  () => {
-    let response = simulation.enterInstructions("0,0,L");
+    let response = simulation.enterInstructions("2,0,0,L");
     response.x.should.equal(0);
     response.y.should.equal(0);
 
     simulation.clear();
 
-    response = simulation.enterInstructions("10,20,L");
+    response = simulation.enterInstructions("2,10,20,L");
     response.x.should.equal(10);
     response.y.should.equal(20);
   });
 
-  it('moves a robot correctly',  () => {
-    let response = simulation.enterInstructions("0,0,FFFRFFFLFFFB");
+  it('moves a Mk2 robot correctly',  () => {
+    let response = simulation.enterInstructions("2,0,0,FFFRFFFLFFFB");
+    should.not.exist(simulation.getError());
+
     response.x.should.equal(3);
-    response.y.should.equal(5);
+    response.y.should.equal(6); // NB: 'B' is ignored for Mk2
 
     simulation.clear();
 
-    response = simulation.enterInstructions("0,0,BBBLLLFF");
+    response = simulation.enterInstructions("2,0,0,BBBLLLFF");
+    should.not.exist(simulation.getError());
+
     response.x.should.equal(2);
     response.y.should.equal(0);
   });

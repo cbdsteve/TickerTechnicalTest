@@ -1,4 +1,5 @@
-const Robot = require("./robot");
+const RobotMk1 = require("./robotMk1");
+const RobotMk2 = require("./robotMk2");
 
 class Chamber {
     constructor(simulation) {
@@ -7,12 +8,13 @@ class Chamber {
         this.error = null;
     };
 
-    addRobot(xStart, yStart) {
+    addRobot(version, xStart, yStart) {
         if (!this.isPositionGood(xStart, yStart)) {
             this.setError('Cannot start new robot at specified position.');
             return null;
         }
-        const newRobot = new Robot(this, xStart, yStart);
+
+        const newRobot = (version === 1) ? new RobotMk1(this, xStart, yStart) : new RobotMk2(this, xStart, yStart);
         this.robots.push(newRobot);
         return newRobot;
     };

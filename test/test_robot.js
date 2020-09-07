@@ -1,6 +1,7 @@
 'use strict';
 
 const Chamber = require('../chamber'); // robots created only through chamber.addRobot
+const {directionNames} = require('../robot');
 
 const chai = require('chai');
 const chaistring = require('chai-string');
@@ -16,10 +17,10 @@ describe('Tests for Robot class', function()  {
 
   beforeEach(() => {
     chamber = new Chamber();
-    robot = chamber.addRobot(0, 0);
   });
   
-  it('calculates turn correctly',  () => {
+  it('calculates turn correctly for Mk2',  () => {
+    robot = chamber.addRobot(2, 0, 0);
     robot.facingDirection.should.equal(0);
 
     robot.turn(true);
@@ -39,45 +40,51 @@ describe('Tests for Robot class', function()  {
     should.not.exist(robot.getError());
   });
 
-  it('calculates canMove correctly',  () => {
-    let response = robot.canMove(true);
+  it('calculates canMove correctly for a Mk2',  () => {
+    robot = chamber.addRobot(2, 0, 0);
+
+    let response = robot.canMove(directionNames.up);
     response.should.equal(true);
 
-    response = robot.canMove(false); 
-    response.should.equal(false); // robot starts at 0,0 facing north / up so should not be able to reverse immediately
-
-    robot.turn(false); // should now be facing west / left, so canMove responses should be flipped
-
-    response = robot.canMove(true);
+    response = robot.canMove(directionNames.down); 
     response.should.equal(false);
 
-    response = robot.canMove(false); 
+//    robot.turn(false); // should now be facing west / left, so canMove responses should be flipped
+
+    response = robot.canMove(directionNames.left);
+    response.should.equal(false);
+
+    response = robot.canMove(directionNames.right); 
     response.should.equal(true);
 
     should.not.exist(robot.getError());
   });
 
-  it('calculates move correctly',  () => {
+  it('calculates move correctly for a Mk2',  () => {
+    robot = chamber.addRobot(2, 0, 0);
+
     robot.xPosition.should.equal(0);
     robot.yPosition.should.equal(0);
     robot.facingDirection.should.equal(0);
 
-    robot.move(true);
+    robot.move("F");
     robot.xPosition.should.equal(0);
     robot.yPosition.should.equal(1);
 
-    robot.move(false);
+    robot.move("B");
     robot.xPosition.should.equal(0);
-    robot.yPosition.should.equal(0);
+    robot.yPosition.should.equal(1);  // B should be ignored for Mk2 as per instructions
 
-    robot.turn(true);
-    robot.move(true);
+    robot.move("R");
+    robot.move("F");
     robot.xPosition.should.equal(1);
-    robot.yPosition.should.equal(0);
+    robot.yPosition.should.equal(1);
 
-    robot.move(false);
+    robot.move("L");
+    robot.move("L");
+    robot.move("F");
     robot.xPosition.should.equal(0);
-    robot.yPosition.should.equal(0);
+    robot.yPosition.should.equal(1);
 
     should.not.exist(robot.getError());
   });

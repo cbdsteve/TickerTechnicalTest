@@ -1,4 +1,5 @@
 const directions = [{x:0, y:1}, {x:1, y:0}, {x:0, y:-1}, {x:-1, y:0}];
+const directionNames = { up:0, right:1, down:2, left:3 };
 
 class Robot {
     constructor(chamber, xPosition = 0, yPosition = 0) {
@@ -9,28 +10,25 @@ class Robot {
         this.error = null;
     };
 
-    canMove(isForward) {
-        const xDelta = (isForward) ? directions[this.facingDirection].x : directions[this.facingDirection].x * -1;
-        const yDelta = (isForward) ? directions[this.facingDirection].y : directions[this.facingDirection].y * -1;
-        return this.chamber.isPositionGood(this.xPosition + xDelta, this.yPosition + yDelta);
+    /* Handle move command, implementation depends on robot version */
+    move() {
+        console.error("Virtual function (sort of), needs to be implemented in subclass");
     };
 
-    move(isForward) {
-        if (this.canMove(isForward)) {
-            const xDelta = (isForward) ? directions[this.facingDirection].x : directions[this.facingDirection].x * -1;
-            const yDelta = (isForward) ? directions[this.facingDirection].y : directions[this.facingDirection].y * -1;
+    scuttle(direction) {
+        if (this.canMove(direction)) {
+            const xDelta = directions[direction].x;
+            const yDelta = directions[direction].y;
     
             this.xPosition += xDelta;
             this.yPosition += yDelta;
         }
-    };
+    }
 
-    turn(isRight) {
-        if (isRight) {
-            this.facingDirection = (this.facingDirection + 1) % 4;
-        } else {
-            this.facingDirection = (this.facingDirection > 0) ? this.facingDirection - 1 : 3;
-        }
+    canMove(direction) {
+        const xDelta = directions[direction].x;
+        const yDelta = directions[direction].y;
+        return this.chamber.isPositionGood(this.xPosition + xDelta, this.yPosition + yDelta);
     };
 
     setError(errorMsg) {
@@ -42,4 +40,4 @@ class Robot {
     };
 }
 
-module.exports = Robot; 
+module.exports = {Robot, directionNames}; 

@@ -12,36 +12,16 @@ class Simulation {
     enterInstructions(instructions = "") {
 
         const segments = instructions.split(",");
-        if (segments.length !== 3 || isNaN(segments[0]) || isNaN(segments[1])) {
-            this.error = `Incorrect instructions format: should be x position, y position, movements e.g. "0,0,FLFRB".`;
+        if (segments.length !== 4 || isNaN(segments[0]) || isNaN(segments[1]) || isNaN(segments[2])) {
+            this.error = `Incorrect instructions format: should be robot version, x position, y position, movements e.g. "2,0,0,FLFRB".`;
             return null;
         }
 
-        const robot = this.chamber.addRobot(segments[0], segments[1]);
-        const movements = segments[2].split('');
+        const robot = this.chamber.addRobot(segments[0], segments[1], segments[2]);
+        const movements = segments[3].split('');
 
         movements.map(command => {
-
-            switch(command) {
-                case 'F':
-                    robot.move(true);
-                    break;
-
-                case 'B':
-                    robot.move(false);
-                    break;
-
-                case 'L':
-                    robot.turn(false);
-                    break;
-                    
-                case 'R':
-                    robot.turn(true);
-                    break;
-                    
-                default:
-                    // ignoring bad movement command
-            }
+            robot.move(command);
         });
 
         const finalPosition = {x: robot.xPosition, y: robot.yPosition};
