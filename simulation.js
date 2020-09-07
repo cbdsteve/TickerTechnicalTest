@@ -45,37 +45,3 @@ class Simulation {
 }
 
 module.exports = Simulation; 
-
-/*
-FFFFFFFF  0, 8
-
-RRRR RRR left
-
-
-FFFF -4, 8
-
-LLL up
-
-BB -4, 8
-
-RRRRR right
-
-LLLL LLLL L up 
-
-R right
-
-FFF -3, 8
-
-3,3,6,
-
-FFFFFFFF 3,14
-RRRR RRR left
-FFFF -1, 14
-LLL up
-BB 
-RRRRR right
-LLLL LLLL L up
-R right
-FFF 2,14
-
-*/
