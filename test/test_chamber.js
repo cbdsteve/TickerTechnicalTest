@@ -35,14 +35,14 @@ describe('Tests for Chamber class', function()  {
 
   it('correctly handles the successful creation of a robot',  () => {
     let response = chamber.addRobot(0, 0);
-    response.should.equal(true);
+    response.should.not.equal(null);
 
     should.not.exist(chamber.getError());
   });
 
   it('correctly handles the unsuccessful creation of a robot',  () => {
     let response = chamber.addRobot(-1, 0);
-    response.should.equal(true);
+    should.not.exist(response);
     chamber.getError().should.equal("Cannot start new robot at specified position.");
   });
 });

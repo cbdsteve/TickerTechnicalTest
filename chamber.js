@@ -1,3 +1,5 @@
+const Robot = require("./robot");
+
 class Chamber {
     constructor(simulation) {
         this.simulation = simulation; // reference to the main object
@@ -7,7 +9,7 @@ class Chamber {
 
     addRobot(xStart, yStart) {
         if (!this.isPositionGood(xStart, yStart)) {
-            this.setError(`Cannot start new robot at x:${xStart}, y:${yStart}`);
+            this.setError('Cannot start new robot at specified position.');
             return null;
         }
         const newRobot = new Robot(this, xStart, yStart);
@@ -16,7 +18,10 @@ class Chamber {
     };
     
     isPositionGood(xPosition, yPosition) {
-        return false;
+        if (xPosition < 0 || yPosition < 0) {
+            return false;
+        }
+        return true;
     };
 
     setError(errorMsg) {

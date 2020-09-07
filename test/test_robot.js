@@ -14,7 +14,7 @@ let robot = null;
 
 describe('Tests for Robot class', function()  {
 
-  before(() => {
+  beforeEach(() => {
     chamber = new Chamber();
     robot = chamber.addRobot(0, 0);
   });
@@ -36,7 +36,7 @@ describe('Tests for Robot class', function()  {
     robot.turn(true);
     robot.facingDirection.should.equal(0);
 
-    should.not.exist(simulation.getError());
+    should.not.exist(robot.getError());
   });
 
   it('calculates canMove correctly',  () => {
@@ -54,12 +54,13 @@ describe('Tests for Robot class', function()  {
     response = robot.canMove(false); 
     response.should.equal(true);
 
-    should.not.exist(simulation.getError());
+    should.not.exist(robot.getError());
   });
 
   it('calculates move correctly',  () => {
     robot.xPosition.should.equal(0);
     robot.yPosition.should.equal(0);
+    robot.facingDirection.should.equal(0);
 
     robot.move(true);
     robot.xPosition.should.equal(0);
@@ -78,7 +79,7 @@ describe('Tests for Robot class', function()  {
     robot.xPosition.should.equal(0);
     robot.yPosition.should.equal(0);
 
-    should.not.exist(simulation.getError());
+    should.not.exist(robot.getError());
   });
 
 });
