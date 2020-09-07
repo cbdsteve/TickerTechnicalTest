@@ -1,5 +1,6 @@
 const RobotMk1 = require("./robotMk1");
 const RobotMk2 = require("./robotMk2");
+const RobotMk3 = require("./robotMk3");
 
 class Chamber {
     constructor(simulation) {
@@ -9,18 +10,29 @@ class Chamber {
     };
 
     addRobot(version, xStart, yStart) {
-        if (!this.isPositionGood(xStart, yStart)) {
+        if (!this.isPositionGood(xStart, yStart, version)) {
             this.setError('Cannot start new robot at specified position.');
             return null;
         }
 
-        const newRobot = (parseInt(version) === 1) ? new RobotMk1(this, xStart, yStart) : new RobotMk2(this, xStart, yStart);
+        let newRobot = null;
+        switch(parseInt(version)) {
+            case 1:
+                newRobot = new RobotMk1(this, xStart, yStart);
+                break;
+            case 2:
+                newRobot = new RobotMk2(this, xStart, yStart);
+                break;
+            default:
+                newRobot = new RobotMk3(this, xStart, yStart);
+        }
         this.robots.push(newRobot);
         return newRobot;
     };
     
-    isPositionGood(xPosition, yPosition) {
-        if (xPosition < 0 || yPosition < 0) {
+    isPositionGood(xPosition, yPosition, robotVersion = null) {
+        if ((robotVersion === 2) && (xPosition < 0 || yPosition < 0)) {
+            // boundary detection applies only to Mk2
             return false;
         }
         return true;

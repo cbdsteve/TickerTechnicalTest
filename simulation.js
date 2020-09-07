@@ -18,11 +18,19 @@ class Simulation {
         }
 
         const robot = this.chamber.addRobot(segments[0], segments[1], segments[2]);
-        const movements = segments[3].split('');
+        const commands = segments[3];
 
-        movements.map(command => {
-            robot.move(command);
-        });
+        for (let commandIndex = 0; commandIndex < commands.length; commandIndex++) {
+            let boost = null;
+
+            if (!isNaN(commands.charAt(commandIndex)) && commandIndex + 1 < commands.length) {
+                boost = commands.charAt(commandIndex);
+                commandIndex++;
+            }
+
+            const direction = commands.charAt(commandIndex);
+            robot.move(direction, boost); // boost ignored by non-Mk3
+        }
 
         return {x: robot.xPosition, y: robot.yPosition};
     };
@@ -37,3 +45,37 @@ class Simulation {
 }
 
 module.exports = Simulation; 
+
+/*
+FFFFFFFF  0, 8
+
+RRRR RRR left
+
+
+FFFF -4, 8
+
+LLL up
+
+BB -4, 8
+
+RRRRR right
+
+LLLL LLLL L up 
+
+R right
+
+FFF -3, 8
+
+3,3,6,
+
+FFFFFFFF 3,14
+RRRR RRR left
+FFFF -1, 14
+LLL up
+BB 
+RRRRR right
+LLLL LLLL L up
+R right
+FFF 2,14
+
+*/

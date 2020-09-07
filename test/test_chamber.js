@@ -25,9 +25,21 @@ describe('Tests for Chamber class', function()  {
     response.should.equal(true);
 
     response = chamber.isPositionGood(0, -1);
-    response.should.equal(false);
+    response.should.equal(true);
 
     response = chamber.isPositionGood(-1, 0);
+    response.should.equal(true);
+
+    response = chamber.isPositionGood(0, -1);
+    response.should.equal(true);
+
+    response = chamber.isPositionGood(-1, 0);
+    response.should.equal(true);
+
+    response = chamber.isPositionGood(0, -1, 2); // boundary detection for Mk2 only
+    response.should.equal(false);
+
+    response = chamber.isPositionGood(-1, 0, 2);
     response.should.equal(false);
 
     should.not.exist(chamber.getError());
@@ -41,7 +53,7 @@ describe('Tests for Chamber class', function()  {
   });
 
   it('correctly handles the unsuccessful creation of a robot',  () => {
-    let response = chamber.addRobot(1, -1, 0);
+    let response = chamber.addRobot(2, -1, 0);
     should.not.exist(response);
     chamber.getError().should.equal("Cannot start new robot at specified position.");
   });

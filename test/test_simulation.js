@@ -53,11 +53,11 @@ describe('Tests for Simulation class', function()  {
 
     simulation.clear();
 
-    response = simulation.enterInstructions("1,0,0,BBBLLLFFRRRRLB");
+    response = simulation.enterInstructions("1,0,0,BBBLLLFFRRRRLRBFFFF");
     should.not.exist(simulation.getError());
 
-    response.x.should.equal(3);
-    response.y.should.equal(1);
+    response.x.should.equal(1);
+    response.y.should.equal(2);
   });
 
   it('moves a Mk2 robot correctly',  () => {
@@ -69,10 +69,19 @@ describe('Tests for Simulation class', function()  {
 
     simulation.clear();
 
-    response = simulation.enterInstructions("2,0,0,BBBLLLFF");
+    response = simulation.enterInstructions("2,0,0,BBBLLLFF3F");
     should.not.exist(simulation.getError());
 
-    response.x.should.equal(2);
+    response.x.should.equal(3); //NB: Boost should be ignored
     response.y.should.equal(0);
   });
+
+  it('moves a Mk3 robot correctly',  () => {
+    let response = simulation.enterInstructions("3,0,0,5F2FFRFF5FL5F5F5FR5FLF");
+    should.not.exist(simulation.getError());
+
+    response.x.should.equal(10);
+    response.y.should.equal(24);
+  });
+
 });

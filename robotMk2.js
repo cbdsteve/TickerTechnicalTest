@@ -3,7 +3,8 @@ const {Robot} = require("./robot");
 class RobotMk2 extends Robot {
     constructor(chamber, xPosition = 0, yPosition = 0) {
         super(chamber, xPosition, yPosition);
-        this.facingDirection = 0; // NB: 0 = up, 1 = right, 2 = down, 3 = left
+        this.facingDirection = 0;
+        this.version = 2;
     };
 
     move(command) {

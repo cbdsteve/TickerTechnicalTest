@@ -8,6 +8,7 @@ class Robot {
         this.yPosition = parseInt(yPosition);
         this.facingDirection = 0; // NB: 0 = up, 1 = right, 2 = down, 3 = left
         this.error = null;
+        this.version = 0;
     };
 
     /* Handle move command, implementation depends on robot version */
@@ -28,11 +29,11 @@ class Robot {
     canMove(direction) {
         const xDelta = directions[direction].x;
         const yDelta = directions[direction].y;
-        return this.chamber.isPositionGood(this.xPosition + xDelta, this.yPosition + yDelta);
+        return this.chamber.isPositionGood(this.xPosition + xDelta, this.yPosition + yDelta, this.getVersion());
     };
 
-    setError(errorMsg) {
-        this.error = errorMsg;
+    getVersion() {
+        return this.version;
     }
 
     getError() {
@@ -40,4 +41,4 @@ class Robot {
     };
 }
 
-module.exports = {Robot, directionNames}; 
+module.exports = {Robot, directions, directionNames}; 
