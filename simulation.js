@@ -24,9 +24,7 @@ class Simulation {
             robot.move(command);
         });
 
-        const finalPosition = {x: robot.xPosition, y: robot.yPosition};
-
-        return finalPosition;
+        return {x: robot.xPosition, y: robot.yPosition};
     };
 
     clear() {

@@ -13,11 +13,11 @@ class RobotMk2 extends Robot {
                 break;
 
             case 'L':
-                this._turn(false);
+                this.turn(false);
                 break;
                 
             case 'R':
-                this._turn(true);
+                this.turn(true);
                 break;
                 
             default:
@@ -26,7 +26,7 @@ class RobotMk2 extends Robot {
         }
     }
 
-    _turn(isRight) {
+    turn(isRight) {
         if (isRight) {
             this.facingDirection = (this.facingDirection + 1) % 4;
         } else {
